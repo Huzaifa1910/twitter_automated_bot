@@ -3,6 +3,10 @@ import json
 import os
 import pandas as pd
 import time
+import nltk
+#nltk.download('punkt')  # Required only the first time
+from nltk.tokenize import sent_tokenize
+
 
 twitter = bot.make_token()
 client_id = os.getenv("CLIENT_ID")
@@ -28,7 +32,7 @@ x = df.shape[0]
 for i in range(x):
     # time.sleep(120)
     print(df.iloc[i]["summary"])
-    post = df.iloc[i]["summary"].split('.')
+    post = sent_tokenize(df.iloc[i]["summary"])
     link = df.iloc[i]["link"]
     post.append(f"Source: {link}")
     print(post)
